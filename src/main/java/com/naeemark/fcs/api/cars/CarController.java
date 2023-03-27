@@ -1,7 +1,6 @@
 package com.naeemark.fcs.api.cars;
 
 import com.naeemark.fcs.models.Car;
-import com.naeemark.fcs.models.responses.CarResponse;
 import com.naeemark.fcs.services.CarService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Naeem <naeemark@gmail.com>.
@@ -47,10 +45,9 @@ public class CarController {
             @ApiResponse(code = 422, message = "Request not processable")
     })
     @GetMapping
-    public ResponseEntity<List<CarResponse>> list() {
+    public ResponseEntity<List<Car>> list() {
         logger.info("Request received for Cars List");
         List<Car> cars = carService.list();
-        List<CarResponse> list = cars.stream().map(CarResponse::new).collect(Collectors.toList());
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(cars);
     }
 }
