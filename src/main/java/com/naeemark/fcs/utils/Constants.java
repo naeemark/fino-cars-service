@@ -10,5 +10,5 @@ import lombok.Generated;
 
 @Generated
 public class Constants {
-    public static final String SERVICE_NAME = "FinoCardService";
+    public static final String SERVICE_NAME = "FinoCarsService";
 }
