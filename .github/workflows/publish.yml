@@ -2,6 +2,7 @@ name: Publish Docker Image
 
 on:
   push:
+    branches: [ "*" ]
     tags:
       - "*"
 
@@ -18,9 +19,9 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
       - name: Build Docker image
-        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} -t $REPO:${GITHUB_REF#refs/*/} .
+        run: docker build -t fino-cars-service:latest -t fino-cars-service:${GITHUB_SHA::8} -t fino-cars-service:${GITHUB_REF#refs/*/} .
       - name: Publish Docker image
-        run: docker push $REPO --all-tags
+        run: docker push fino-cars-service --all-tags
 
 
 #   Deployment works as manual by pulling the latest image on EC2 Instance
