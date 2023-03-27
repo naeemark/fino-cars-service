@@ -36,7 +36,7 @@ public class CarController {
     /**
      * Gets Cars List
      *
-     * @return Car Response
+     * @return List of Car Response
      */
     @ApiOperation(value = "List Cars", notes = "Gets all cars with balance", response = Collection.class, tags = {"1 - Cars"})
     @ApiResponses(value = {
