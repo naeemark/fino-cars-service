@@ -30,7 +30,7 @@ public class HealthController {
 
         HealthResponse healthResponse = new HealthResponse(Constants.SERVICE_NAME, "OK");
 
-        logger.info(healthResponse.toString());
+        logger.info("{}", healthResponse);
         return healthResponse;
     }
 }
