@@ -18,7 +18,8 @@
 		<springfox-swagger.version>2.9.2</springfox-swagger.version>
 
 		<code.coverage.exclusions>
-
+			**/com/naeemark/fcs/FinoCarsServiceApplication.java,
+			**/com/naeemark/fcs/models/**
 		</code.coverage.exclusions>
 	</properties>
 	<dependencies>
