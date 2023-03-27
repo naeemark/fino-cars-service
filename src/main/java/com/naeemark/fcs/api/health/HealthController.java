@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>
  * Created on: 2023-03-27
  */
-@Api(tags = "0 - HealthResponse Check")
+@Api(tags = "0 - Health Check")
 @RestController
 @RequestMapping("/api")
 public class HealthController {
