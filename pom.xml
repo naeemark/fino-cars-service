@@ -126,7 +126,7 @@
 				<sonar.host.url>https://sonarcloud.io/</sonar.host.url>
 				<sonar.organization>naeemark-1</sonar.organization>
 				<sonar.projectKey>naeemark_fino-cars-service</sonar.projectKey>
-				<sonar.projectName>FunBankService</sonar.projectName>
+				<sonar.projectName>Fino Cars Service</sonar.projectName>
 				<sonar.inclusions>src/main/java/**</sonar.inclusions>
 				<sonar.exclusions>${code.coverage.exclusions}</sonar.exclusions>
 				<sonar.test.exclusions>**/test/**</sonar.test.exclusions>
