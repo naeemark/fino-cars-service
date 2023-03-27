@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -70,6 +72,53 @@ class CarControllerTest {
     void list_Success_empty() throws Exception {
         when(service.findAll()).thenReturn(Collections.emptyList());
         mockMvc.perform(get("/api/cars"))
+                // then
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+
+    @Test
+    @DisplayName("GET Page - success")
+    void page_Success() throws Exception {
+        Car car = TestUtil.getCar();
+        when(service.findPage(anyInt(), anyInt(), anyString())).thenReturn(Collections.singletonList(car));
+        mockMvc.perform(get("/api/cars/page?number=1&size=10"))
+                // then
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.[*].id").exists())
+                .andExpect(jsonPath("$.[*].make").exists())
+                .andExpect(jsonPath("$.[*].id").exists())
+                .andExpect(jsonPath("$.[*].make").exists())
+                .andExpect(jsonPath("$.[*].modelYear").exists())
+                .andExpect(jsonPath("$.[*].year").exists())
+                .andExpect(jsonPath("$.[*].engineType").exists())
+                .andExpect(jsonPath("$.[*].type").exists())
+                .andExpect(jsonPath("$.[*].fuelType").exists())
+                .andExpect(jsonPath("$.[*].driveline").exists())
+                .andExpect(jsonPath("$.[*].classification").exists())
+                .andExpect(jsonPath("$.[*].forwardGears").exists())
+                .andExpect(jsonPath("$.[*].transmission").exists())
+                .andExpect(jsonPath("$.[*].horsepower").exists())
+                .andExpect(jsonPath("$.[*].cityMilesPerGallon").exists())
+                .andExpect(jsonPath("$.[*].highwayMilesPerGallon").exists())
+                .andExpect(jsonPath("$.[*].width").exists())
+                .andExpect(jsonPath("$.[*].height").exists())
+                .andExpect(jsonPath("$.[*].length").exists())
+                .andExpect(jsonPath("$.[*].imageUri").exists());
+    }
+
+
+    @Test
+    @DisplayName("GET Search - success")
+    void search_Success() throws Exception {
+        when(service.search(anyInt(), anyString(), anyString(), anyInt(), anyString(), anyString())).thenReturn(Collections.emptyList());
+        mockMvc.perform(get("/api/cars/search?id=1"))
                 // then
                 .andDo(print())
                 .andExpect(status().isOk())
