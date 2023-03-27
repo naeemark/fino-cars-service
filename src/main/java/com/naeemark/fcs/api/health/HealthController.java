@@ -1,6 +1,7 @@
 package com.naeemark.fcs.api.health;
 
 
+import com.naeemark.fcs.config.SwaggerConfiguration;
 import com.naeemark.fcs.models.responses.HealthResponse;
 import com.naeemark.fcs.utils.Constants;
 import io.swagger.annotations.Api;
@@ -17,15 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>
  * Created on: 2023-03-27
  */
-@Api(tags = "0 - Health Check")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/health")
+@Api(tags = {SwaggerConfiguration.HEALTH_TAG})
 public class HealthController {
 
     private static final Logger logger = LoggerFactory.getLogger(HealthController.class);
 
     @ApiOperation(value = "HealthResponse Check", notes = "Gets health status of the service", response = HealthResponse.class)
-    @GetMapping(value = "/health")
+    @GetMapping(value = "/")
     public HealthResponse checkHealth() {
 
         HealthResponse healthResponse = new HealthResponse(Constants.SERVICE_NAME, "OK");

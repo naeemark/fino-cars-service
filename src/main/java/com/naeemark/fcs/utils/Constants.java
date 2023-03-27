@@ -11,4 +11,6 @@ import lombok.Generated;
 @Generated
 public class Constants {
     public static final String SERVICE_NAME = "FinoCarsService";
+
+    public static final String ERROR_DATA_NOT_FOUND = "Requested data not found in the system";
 }
