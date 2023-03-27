@@ -1,5 +1,6 @@
 package com.naeemark.fcs.api.cars;
 
+import com.naeemark.fcs.config.SwaggerConfiguration;
 import com.naeemark.fcs.models.Car;
 import com.naeemark.fcs.services.CarService;
 import io.swagger.annotations.Api;
@@ -23,9 +24,9 @@ import java.util.List;
  * Created on: 2023-03-27
  */
 
-@Api(tags = "1 - Cars", description = "Operations related to Cars")
 @RestController
 @RequestMapping("/api/cars")
+@Api(tags = {SwaggerConfiguration.CARS_TAG})
 public class CarController {
 
     @Autowired
@@ -41,13 +42,12 @@ public class CarController {
     @ApiOperation(value = "List Cars", notes = "Gets all cars with balance", response = Collection.class, tags = {"1 - Cars"})
     @ApiResponses(value = {
             @ApiResponse(code = 304, message = "Operation was not successful"),
-            @ApiResponse(code = 417, message = "Expectations failed"),
             @ApiResponse(code = 422, message = "Request not processable")
     })
     @GetMapping
     public ResponseEntity<List<Car>> list() {
         logger.info("Request received for Cars List");
-        List<Car> cars = carService.list();
+        List<Car> cars = carService.findAll();
         return ResponseEntity.ok(cars);
     }
 }

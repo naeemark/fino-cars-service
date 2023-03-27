@@ -36,7 +36,7 @@ class CarControllerTest {
     @DisplayName("GET List - success")
     void list_Success() throws Exception {
         Car car = TestUtil.getCar();
-        when(service.list()).thenReturn(Collections.singletonList(car));
+        when(service.findAll()).thenReturn(Collections.singletonList(car));
         mockMvc.perform(get("/api/cars"))
                 // then
                 .andDo(print())
@@ -68,7 +68,7 @@ class CarControllerTest {
     @Test
     @DisplayName("GET List - success empty")
     void list_Success_empty() throws Exception {
-        when(service.list()).thenReturn(Collections.emptyList());
+        when(service.findAll()).thenReturn(Collections.emptyList());
         mockMvc.perform(get("/api/cars"))
                 // then
                 .andDo(print())

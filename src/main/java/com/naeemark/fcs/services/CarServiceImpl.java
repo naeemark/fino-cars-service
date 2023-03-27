@@ -5,11 +5,14 @@ import com.naeemark.fcs.repositories.CarRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
+
+import static com.naeemark.fcs.utils.Constants.ERROR_DATA_NOT_FOUND;
 
 
 /**
@@ -25,8 +28,14 @@ public class CarServiceImpl implements CarService {
     private static final Logger logger = LoggerFactory.getLogger(CarServiceImpl.class);
     @Autowired
     CarRepository carRepository;
+
     @Override
-    public List<Car> list() {
-        return carRepository.findAll();
+    public List<Car> findAll() {
+        try {
+            return carRepository.findAll();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ERROR_DATA_NOT_FOUND);
+        }
     }
 }

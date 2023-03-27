@@ -11,5 +11,5 @@ import java.util.List;
  * Created on: 2023-03-27
  */
 public interface CarService {
-    List<Car> list();
+    List<Car> findAll();
 }
