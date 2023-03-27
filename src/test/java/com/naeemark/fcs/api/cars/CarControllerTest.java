@@ -1,15 +1,15 @@
 package com.naeemark.fcs.api.cars;
 
 import com.naeemark.fcs.models.Car;
-import com.naeemark.fcs.repositories.CarRepository;
+import com.naeemark.fcs.services.CarService;
 import com.naeemark.fcs.utils.TestUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
@@ -21,24 +21,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
 @DisplayName("Tests for CarController")
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(CarController.class)
 class CarControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private CarRepository repository;
+    private CarService service;
 
     @Test
     @DisplayName("GET List - success")
     void list_Success() throws Exception {
         Car car = TestUtil.getCar();
-        when(repository.findAll()).thenReturn(Collections.singletonList(car));
+        when(service.list()).thenReturn(Collections.singletonList(car));
         mockMvc.perform(get("/api/cars"))
                 // then
                 .andDo(print())
@@ -70,7 +68,7 @@ class CarControllerTest {
     @Test
     @DisplayName("GET List - success empty")
     void list_Success_empty() throws Exception {
-        when(repository.findAll()).thenReturn(Collections.emptyList());
+        when(service.list()).thenReturn(Collections.emptyList());
         mockMvc.perform(get("/api/cars"))
                 // then
                 .andDo(print())
