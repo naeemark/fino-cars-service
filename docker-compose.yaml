@@ -1,0 +1,22 @@
+services:
+  database:
+    image: postgres:14
+    restart: always
+    environment:
+      - POSTGRES_DB=fino_cars
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./misc:/docker-entrypoint-initdb.d
+
+  app:
+    depends_on:
+      - database
+    build: .
+    restart: on-failure
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/fino_cars
