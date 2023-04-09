@@ -6,8 +6,8 @@ services:
       - MYSQL_ROOT_PASSWORD=password
     ports:
       - '3306:3306'
-    volumes:
-      - ./misc:/docker-entrypoint-initdb.d
+#    volumes:
+#      - ./misc:/docker-entrypoint-initdb.d
 
   app:
     depends_on:
@@ -17,4 +17,4 @@ services:
     ports:
       - 8080:8080
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/fino_cars
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/fino_cars?createDatabaseIfNotExist=true
