@@ -1,0 +1,12 @@
+.ContentItem {
+    margin-top: 10px;
+}
+
+.Title {
+    text-align: center;
+    color: red;
+}
+
+.CardTitle {    
+    color: rgb(152, 50, 50);
+}
